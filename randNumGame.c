@@ -80,6 +80,13 @@ int main(void) {
 	randNumMax = 10;
 	char error;
 
+	FILE *fp, *fr;
+	// Implements the max number ceiling the user last established in previous game.
+	// A max_number_keep_file.txt file must be present, or else the program will not function.
+	fr = fopen("max_number_keep_file.txt", "r");
+	fscanf(fr,"%d", &randNumMax);
+	fclose(fr);
+	
 	menu:
 
 	printf("****************************************");
@@ -151,6 +158,12 @@ int main(void) {
 	else if(randNumMax > 0 && randNumMax <= 214783647)
 	{
 		printf("\nMax value to be guessed has been set!\n\n");
+
+		// Writes and saves max number to a text file.
+		fp = fopen("max_number_keep_file.txt","w+");
+		fprintf(fp, "%d", randNumMax);
+		fclose(fp);
+
 		goto menu;
 	}
 
